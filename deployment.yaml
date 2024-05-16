@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calculator
+  template:
+    metadata:
+      labels:
+        app: calculator
+    spec:
+      containers:
+        - name: calculator
+          image: s222309556/calculator-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "admin"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "password"
+            - name: MONGO_USERNAME
+              value: "myappuser"
+            - name: MONGO_PASSWORD
+              value: "myapppassword"
+            - name: MONGO_DB
+              value: "mydatabase"
+            - name: MONGO_HOST
+              value: "mongo-svc"
